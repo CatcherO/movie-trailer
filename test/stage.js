@@ -56,3 +56,5 @@ Promise.resolve()
     .then(() => {
         console.log('Promise 的第 2次 回调')
     })
+
+    console.log('begain')
