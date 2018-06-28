@@ -10,21 +10,21 @@ const app = new Koa()
 
     initSchemas()
 
-    const Movie = mongoose.model('Movie')
-    const movies = await Movie.find({})
-
-    console.log(movies)
+    // require('./tasks/movie')
+    // require('./tasks/api-test')
+    require('./tasks/trailer')
+    // require('./tasks/qiniu')
 })()
 
-app.use(views(resolve(__dirname, './views'), {
-    extension: 'pug'
-}))
+// app.use(views(resolve(__dirname, './views'), {
+//     extension: 'pug'
+// }))
 
-app.use(async (ctx, next) => {
-    await ctx.render('index', {
-        you: 'Luke',
-        me: 'Scott'
-    }) 
-})
+// app.use(async (ctx, next) => {
+//     await ctx.render('index', {
+//         you: 'Luke',
+//         me: 'Scott'
+//     }) 
+// })
 
-app.listen(2333)
+// app.listen(2333)

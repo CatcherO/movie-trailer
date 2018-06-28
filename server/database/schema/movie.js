@@ -6,10 +6,10 @@ const movieSchema = new Schema({
     type: String,
     required: true
   },
-  category: {
+  category: [{
       type: ObjectId,
       ref: 'Category'
-    },
+    }],
   rate: Number,
   title: String,
   summary: String,
@@ -41,7 +41,7 @@ const movieSchema = new Schema({
 }) 
 
 
-movieSchema.pre('save', next => {
+movieSchema.pre('save', function(next) {
     if (this.isNew) {
         this.meta.createdAt = this.meta.updatedAt = Date.now()
     } else {
