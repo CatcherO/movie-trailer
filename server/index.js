@@ -2,20 +2,25 @@ const Koa = require('koa')
 const mongoose = require('mongoose')
 const { resolve } = require('path')
 const views = require('koa-views')
-const { connect, initSchemas } = require('./database/init')
-const app = new Koa()
-
+const { connect, initSchemas, initAdmin } = require('./database/init')
+const router = require('./routes')
 ;(async () => {
     await connect()
 
     initSchemas()
 
+    // await initAdmin()
     // require('./tasks/movie')
     // require('./tasks/api-test')
-    require('./tasks/trailer')
+    // require('./tasks/trailer')
     // require('./tasks/qiniu')
 })()
 
+const app = new Koa()
+
+// app
+//     .use(router.routes())
+//     .use(router.allowedMethods())
 // app.use(views(resolve(__dirname, './views'), {
 //     extension: 'pug'
 // }))
@@ -27,4 +32,4 @@ const app = new Koa()
 //     }) 
 // })
 
-// app.listen(2333)
+app.listen(2333)

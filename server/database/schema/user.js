@@ -7,22 +7,27 @@ const bcrypt = require('bcrypt')
 const userSchema = new Schema({
   username: {
       unique: true,
-      type: String,
+      required: true,
+      type: String
   },
   email: {
       unique: true,
       required: true,
-      type: String,
+      type: String
   },
   password: {
       unique: true,
       required: true,
-      type: String,
+      type: String
   }, 
   loginAttempts: {
       type: Number,
       required: true,
       default: 0
+  },
+  role: {
+    type: String,
+    default: 'user'
   },
  lockUntil: Number,
   meta: {
