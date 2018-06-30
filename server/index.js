@@ -3,7 +3,22 @@ const mongoose = require('mongoose')
 const { resolve } = require('path')
 const views = require('koa-views')
 const { connect, initSchemas, initAdmin } = require('./database/init')
-const router = require('./routes')
+
+const R = require('ramda')
+const MIDDLEWARES = ['router', 'parcel'] 
+
+const useMiddlewares = (app) => {
+    R.map(
+        R.compose(
+            R.forEachObjIndexed(
+                initWith => initWith (app) 
+            ),
+            require,
+            name => resolve(__dirname, `./middlewares/${name}`)
+        )
+    )(MIDDLEWARES)
+}
+
 ;(async () => {
     await connect()
 
@@ -14,9 +29,13 @@ const router = require('./routes')
     // require('./tasks/api-test')
     // require('./tasks/trailer')
     // require('./tasks/qiniu')
-})()
+    const app = new Koa()
+    await useMiddlewares(app)
 
-const app = new Koa()
+    app.listen(2333)
+    
+
+})()
 
 // app
 //     .use(router.routes())
@@ -31,5 +50,3 @@ const app = new Koa()
 //         me: 'Scott'
 //     }) 
 // })
-
-app.listen(2333)
